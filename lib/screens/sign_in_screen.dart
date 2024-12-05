@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_with_firebase/providers/auth_provider.dart';
 import 'package:todo_with_firebase/screens/sign_up_screen.dart';
+import 'package:todo_with_firebase/screens/todo_list_screen.dart';
 
 class SignInScreen extends ConsumerWidget {
   SignInScreen({super.key});
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final authProvider =
-      StateNotifierProvider<AuthNotifier, String?>((ref) => AuthNotifier());
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -46,7 +45,8 @@ class SignInScreen extends ConsumerWidget {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('Login success!'),
                     ));
-                    // TODO: todo 화면으로 이동
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const TodoListScreen()));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('Login failed!'),

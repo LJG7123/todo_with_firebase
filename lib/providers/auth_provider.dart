@@ -1,6 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_with_firebase/services/auth_service.dart';
 
+final authProvider =
+    StateNotifierProvider<AuthNotifier, String?>((ref) => AuthNotifier());
+
 class AuthNotifier extends StateNotifier<String?> {
   AuthNotifier() : super(null);
 
