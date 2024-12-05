@@ -10,6 +10,12 @@ class TodoListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var todos = ref.watch(todoProvider);
+    var userEmail = ref.watch(authProvider);
+    if (userEmail != null) {
+      ref.read(todoProvider.notifier).getTodos(userEmail);
+    } else {
+      // TODO: 로그인 에러 처리
+    }
     return Scaffold(
       appBar: AppBar(title: const Text("Todo List")),
       body: ListView.builder(
@@ -56,7 +62,6 @@ class AddTodoDialog extends ConsumerWidget {
         ),
         TextButton(
           onPressed: () {
-            print(userEmail);
             if (_titleController.text.isNotEmpty && userEmail != null) {
               todo.addTodo(
                   TodoModel(title: _titleController.text, author: userEmail));
