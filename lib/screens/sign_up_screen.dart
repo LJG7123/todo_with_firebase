@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todo_with_firebase/models/user_model.dart';
 import 'package:todo_with_firebase/providers/auth_provider.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
@@ -15,7 +16,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
   final authProvider =
-      StateNotifierProvider<AuthNotifier, String?>((ref) => AuthNotifier());
+      StateNotifierProvider<AuthNotifier, UserModel?>((ref) => AuthNotifier());
   bool _isLoading = false;
 
   final emailRegEx = RegExp(r'^[a-zA-Z0-9_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');

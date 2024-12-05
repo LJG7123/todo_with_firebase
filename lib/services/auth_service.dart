@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:todo_with_firebase/models/user_model.dart';
 
 class AuthService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -17,9 +18,15 @@ class AuthService {
     });
   }
 
-  Future<void> signInUser(String email, String password) async {
+  Future<UserModel> signInUser(String email, String password) async {
     userCredential = await _auth.signInWithEmailAndPassword(
         email: email, password: password);
+    var snapshot = await _firestore
+        .collection("users")
+        .where("email", isEqualTo: userCredential?.user?.email)
+        .get();
+    var userData = snapshot.docs.first.data();
+    return UserModel(name: userData["name"], email: userData["email"]);
   }
 
   Future<void> signOut() async {

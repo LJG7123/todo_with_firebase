@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todo_with_firebase/models/user_model.dart';
 import 'package:todo_with_firebase/services/auth_service.dart';
 
 final authProvider =
-    StateNotifierProvider<AuthNotifier, String?>((ref) => AuthNotifier());
+    StateNotifierProvider<AuthNotifier, UserModel?>((ref) => AuthNotifier());
 
-class AuthNotifier extends StateNotifier<String?> {
+class AuthNotifier extends StateNotifier<UserModel?> {
   AuthNotifier() : super(null);
 
   final authService = AuthService.instance;
@@ -21,8 +22,8 @@ class AuthNotifier extends StateNotifier<String?> {
 
   Future<bool> signIn(String email, String password) async {
     bool result = false;
-    await authService.signInUser(email, password).then((_) {
-      state = email;
+    await authService.signInUser(email, password).then((user) {
+      state = user;
       result = true;
     }, onError: (_) {
       result = false;
@@ -30,7 +31,7 @@ class AuthNotifier extends StateNotifier<String?> {
     return result;
   }
 
-  Future<bool> singOut() async {
+  Future<bool> signOut() async {
     bool result = false;
     await authService.signOut().then((_) {
       state = null;

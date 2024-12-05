@@ -10,14 +10,24 @@ class TodoListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var todos = ref.watch(todoProvider);
-    var userEmail = ref.read(authProvider);
-    if (userEmail != null) {
-      ref.read(todoProvider.notifier).getTodos(userEmail);
+    var user = ref.read(authProvider);
+    if (user != null) {
+      ref.read(todoProvider.notifier).getTodos(user.email);
     } else {
       // TODO: 로그인 에러 처리
     }
     return Scaffold(
-      appBar: AppBar(title: const Text("Todo List")),
+      appBar: AppBar(
+        title: const Text("Todo List"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/settings');
+            },
+            icon: const Icon(Icons.settings),
+          ),
+        ],
+      ),
       body: ListView.builder(
         itemCount: todos.length,
         itemBuilder: (context, index) {
@@ -45,7 +55,7 @@ class AddTodoDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final todoNotifier = ref.read(todoProvider.notifier);
-    final userEmail = ref.read(authProvider);
+    final user = ref.read(authProvider);
 
     return AlertDialog(
       title: const Text("Add Todo"),
@@ -62,9 +72,9 @@ class AddTodoDialog extends ConsumerWidget {
         ),
         TextButton(
           onPressed: () {
-            if (_titleController.text.isNotEmpty && userEmail != null) {
+            if (_titleController.text.isNotEmpty && user != null) {
               todoNotifier.addTodo(
-                  TodoModel(title: _titleController.text, author: userEmail));
+                  TodoModel(title: _titleController.text, author: user.email));
               Navigator.of(context).pop();
             }
           },
