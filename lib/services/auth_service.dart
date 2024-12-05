@@ -26,7 +26,7 @@ class AuthService {
         .where("email", isEqualTo: userCredential?.user?.email)
         .get();
     var userData = snapshot.docs.first.data();
-    return UserModel(name: userData["name"], email: userData["email"]);
+    return UserModel.fromJson(userData);
   }
 
   Future<void> signOut() async {
