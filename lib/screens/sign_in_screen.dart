@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_with_firebase/providers/auth_provider.dart';
-import 'package:todo_with_firebase/screens/sign_up_screen.dart';
-import 'package:todo_with_firebase/screens/todo_list_screen.dart';
 
 class SignInScreen extends ConsumerWidget {
   SignInScreen({super.key});
@@ -41,16 +39,18 @@ class SignInScreen extends ConsumerWidget {
                 onPressed: () async {
                   bool ret = await auth.signIn(
                       _emailController.text, _passwordController.text);
-                  if (ret) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Login success!'),
-                    ));
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const TodoListScreen()));
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Login failed!'),
-                    ));
+                  if (context.mounted) {
+                    if (ret) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Login success!'),
+                      ));
+                      Navigator.pushNamedAndRemoveUntil(context, '/todos',
+                          (route) => route.settings.name == '/todos');
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Login failed!'),
+                      ));
+                    }
                   }
                 },
                 style: ElevatedButton.styleFrom(
@@ -62,8 +62,7 @@ class SignInScreen extends ConsumerWidget {
             const SizedBox(height: 10),
             TextButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const SignUpScreen()));
+                Navigator.pushNamed(context, '/signUp');
               },
               child: const Text('회원가입',
                   style: TextStyle(color: Color(0xff8A2BE2))),

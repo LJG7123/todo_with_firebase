@@ -145,7 +145,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     if (ret) {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("회원가입이 완료되었습니다.")));
-      Navigator.of(context).pop();
+      Navigator.pop(context);
     } else {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("회원가입에 실패했습니다.")));

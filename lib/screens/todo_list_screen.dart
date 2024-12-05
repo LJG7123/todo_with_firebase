@@ -10,7 +10,7 @@ class TodoListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var todos = ref.watch(todoProvider);
-    var userEmail = ref.watch(authProvider);
+    var userEmail = ref.read(authProvider);
     if (userEmail != null) {
       ref.read(todoProvider.notifier).getTodos(userEmail);
     } else {
@@ -44,7 +44,7 @@ class AddTodoDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final todo = ref.read(todoProvider.notifier);
+    final todoNotifier = ref.read(todoProvider.notifier);
     final userEmail = ref.read(authProvider);
 
     return AlertDialog(
@@ -63,7 +63,7 @@ class AddTodoDialog extends ConsumerWidget {
         TextButton(
           onPressed: () {
             if (_titleController.text.isNotEmpty && userEmail != null) {
-              todo.addTodo(
+              todoNotifier.addTodo(
                   TodoModel(title: _titleController.text, author: userEmail));
               Navigator.of(context).pop();
             }
