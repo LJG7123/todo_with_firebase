@@ -10,12 +10,7 @@ class TodoListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var todos = ref.watch(todoProvider);
-    var user = ref.read(authProvider);
-    if (user != null) {
-      ref.read(todoProvider.notifier).getTodos(user.email);
-    } else {
-      // TODO: 로그인 에러 처리
-    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Todo List"),
@@ -34,6 +29,11 @@ class TodoListScreen extends ConsumerWidget {
           return ListTile(
             title: Text(todos[index].title),
             subtitle: Text(todos[index].author),
+            trailing: IconButton(
+                onPressed: () {
+                  ref.read(todoProvider.notifier).deleteTodo(todos[index].id!);
+                },
+                icon: const Icon(Icons.delete)),
           );
         },
       ),

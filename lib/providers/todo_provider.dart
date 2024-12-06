@@ -6,16 +6,24 @@ final todoProvider = StateNotifierProvider<TodoNotifier, List<TodoModel>>(
     (ref) => TodoNotifier());
 
 class TodoNotifier extends StateNotifier<List<TodoModel>> {
-  TodoNotifier() : super([]);
+  TodoNotifier() : super([]) {
+    getTodos();
+  }
   final todoService = TodoService.instance;
 
-  void getTodos(String email) async {
-    state = await todoService.getTodos(email);
+  void getTodos() async {
+    state = await todoService.getTodos();
   }
 
   void addTodo(TodoModel todo) {
     todoService.addTodo(todo).whenComplete(() {
-      getTodos(todo.author);
+      getTodos();
+    });
+  }
+
+  void deleteTodo(String id) {
+    todoService.deleteTodo(id).whenComplete(() {
+      getTodos();
     });
   }
 }
