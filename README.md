@@ -1,16 +1,18 @@
 # todo_with_firebase
 
-A new Flutter project.
+로그인 화면
 
-## Getting Started
+<img src=https://github.com/user-attachments/assets/56feafa0-5dc1-40a7-a451-c9b50a11a2d6 width=270>
 
-This project is a starting point for a Flutter application.
+Todo 리스트 화면
 
-A few resources to get you started if this is your first Flutter project:
+<img src=https://github.com/user-attachments/assets/7d1c64b4-2bfd-4d3c-b11b-ea7d6346b12a width=270>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Todo 추가 화면
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src=https://github.com/user-attachments/assets/e8714e33-fc65-4478-93a6-27297249a621 width=270>
+
+
+설정 화면 (구글 로그인 상태)
+
+<img src=https://github.com/user-attachments/assets/1de76ec3-1790-412d-83b7-c637800cc033 width=270>
