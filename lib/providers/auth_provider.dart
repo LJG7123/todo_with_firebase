@@ -31,6 +31,17 @@ class AuthNotifier extends StateNotifier<UserModel?> {
     return result;
   }
 
+  Future<bool> signInWithGoogle() async {
+    bool result = false;
+    await authService.signInWithGoogle().then((user) {
+      state = user;
+      result = true;
+    }, onError: (_) {
+      result = false;
+    });
+    return result;
+  }
+
   Future<bool> signOut() async {
     bool result = false;
     await authService.signOut().then((_) {
