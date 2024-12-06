@@ -31,6 +31,17 @@ class AuthNotifier extends StateNotifier<UserModel?> {
     return result;
   }
 
+  Future<bool> resetPassword() async {
+    bool result = false;
+    if (state == null || state!.isSocialSignedIn) {
+      return result;
+    }
+    await authService.resetPassword(state!.email).then((_) {
+      result = true;
+    });
+    return result;
+  }
+
   Future<bool> signInWithGoogle() async {
     bool result = false;
     await authService.signInWithGoogle().then((user) {

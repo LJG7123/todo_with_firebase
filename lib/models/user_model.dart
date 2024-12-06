@@ -1,8 +1,10 @@
 class UserModel {
   String name;
   String email;
+  bool isSocialSignedIn;
 
-  UserModel({required this.name, required this.email});
+  UserModel(
+      {required this.name, required this.email, this.isSocialSignedIn = false});
 
   Map<String, dynamic> toJson() {
     return {

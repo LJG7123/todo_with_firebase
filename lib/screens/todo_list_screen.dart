@@ -5,7 +5,10 @@ import 'package:todo_with_firebase/providers/auth_provider.dart';
 import 'package:todo_with_firebase/providers/todo_provider.dart';
 
 class TodoListScreen extends ConsumerWidget {
-  const TodoListScreen({super.key});
+  TodoListScreen({super.key});
+
+  final todoProvider = StateNotifierProvider<TodoNotifier, List<TodoModel>>(
+      (ref) => TodoNotifier());
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,7 +42,9 @@ class TodoListScreen extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showDialog(context: context, builder: (context) => AddTodoDialog());
+          showDialog(
+              context: context,
+              builder: (context) => AddTodoDialog(todoProvider: todoProvider));
         },
         child: const Icon(Icons.add),
       ),
@@ -49,8 +54,9 @@ class TodoListScreen extends ConsumerWidget {
 
 class AddTodoDialog extends ConsumerWidget {
   final _titleController = TextEditingController();
+  final StateNotifierProvider<TodoNotifier, List<TodoModel>> todoProvider;
 
-  AddTodoDialog({super.key});
+  AddTodoDialog({super.key, required this.todoProvider});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

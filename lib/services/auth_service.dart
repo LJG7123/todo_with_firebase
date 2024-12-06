@@ -31,6 +31,10 @@ class AuthService {
     return UserModel.fromJson(userData);
   }
 
+  Future<void> resetPassword(String email) async {
+    _auth.sendPasswordResetEmail(email: email);
+  }
+
   Future<UserModel> signInWithGoogle() async {
     final googleAccount = await _googleSignIn.signIn();
     if (googleAccount == null) {
@@ -44,7 +48,9 @@ class AuthService {
     userCredential = await _auth.signInWithCredential(credential);
 
     return UserModel(
-        name: googleAccount.displayName ?? 'null', email: googleAccount.email);
+        name: googleAccount.displayName ?? 'null',
+        email: googleAccount.email,
+        isSocialSignedIn: true);
   }
 
   Future<void> signOut() async {

@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   final _routes = <String, WidgetBuilder>{
     '/': (context) => SignInScreen(),
     '/signUp': (context) => const SignUpScreen(),
-    '/todos': (context) => const TodoListScreen(),
+    '/todos': (context) => TodoListScreen(),
     '/settings': (context) => const SettingsScreen(),
   };
 }
