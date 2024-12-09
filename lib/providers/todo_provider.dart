@@ -2,6 +2,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_with_firebase/models/todo_model.dart';
 import 'package:todo_with_firebase/services/todo_service.dart';
 
+final todoProvider = StateNotifierProvider<TodoNotifier, List<TodoModel>>(
+    (ref) => TodoNotifier());
+
 class TodoNotifier extends StateNotifier<List<TodoModel>> {
   TodoNotifier() : super([]) {
     getTodos();
@@ -20,6 +23,14 @@ class TodoNotifier extends StateNotifier<List<TodoModel>> {
 
   void deleteTodo(String id) {
     todoService.deleteTodo(id).whenComplete(() {
+      getTodos();
+    });
+  }
+
+  void addComment(String id, String comment) {
+    var todo = state.firstWhere((element) => element.id == id)
+      ..addComment(comment);
+    todoService.updateTodo(id, todo).whenComplete(() {
       getTodos();
     });
   }

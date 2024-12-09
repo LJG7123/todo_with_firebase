@@ -28,4 +28,8 @@ class TodoService {
   Future<void> deleteTodo(String id) async {
     _firestore.collection("todos").doc(id).delete();
   }
+
+  Future<void> updateTodo(String id, TodoModel todo) async {
+    _firestore.collection("todos").doc(id).set(todo.toJson());
+  }
 }

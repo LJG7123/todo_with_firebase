@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_with_firebase/screens/settings_screen.dart';
 import 'package:todo_with_firebase/screens/sign_in_screen.dart';
 import 'package:todo_with_firebase/screens/sign_up_screen.dart';
+import 'package:todo_with_firebase/screens/todo_detail_screen.dart';
 import 'package:todo_with_firebase/screens/todo_list_screen.dart';
 
 void main() async {
@@ -28,5 +29,6 @@ class MyApp extends StatelessWidget {
     '/signUp': (context) => const SignUpScreen(),
     '/todos': (context) => TodoListScreen(),
     '/settings': (context) => const SettingsScreen(),
+    '/detail': (context) => const TodoDetailScreen(),
   };
 }

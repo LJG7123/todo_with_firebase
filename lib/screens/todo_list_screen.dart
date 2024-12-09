@@ -5,10 +5,7 @@ import 'package:todo_with_firebase/providers/auth_provider.dart';
 import 'package:todo_with_firebase/providers/todo_provider.dart';
 
 class TodoListScreen extends ConsumerWidget {
-  TodoListScreen({super.key});
-
-  final todoProvider = StateNotifierProvider<TodoNotifier, List<TodoModel>>(
-      (ref) => TodoNotifier());
+  const TodoListScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,6 +34,9 @@ class TodoListScreen extends ConsumerWidget {
                   ref.read(todoProvider.notifier).deleteTodo(todos[index].id!);
                 },
                 icon: const Icon(Icons.delete)),
+            onTap: () {
+              Navigator.pushNamed(context, '/detail', arguments: index);
+            },
           );
         },
       ),
@@ -79,8 +79,10 @@ class AddTodoDialog extends ConsumerWidget {
         TextButton(
           onPressed: () {
             if (_titleController.text.isNotEmpty && user != null) {
-              todoNotifier.addTodo(
-                  TodoModel(title: _titleController.text, author: user.email));
+              todoNotifier.addTodo(TodoModel(
+                  title: _titleController.text,
+                  author: user.email,
+                  comments: []));
               Navigator.of(context).pop();
             }
           },
