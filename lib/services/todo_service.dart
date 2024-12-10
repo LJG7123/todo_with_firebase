@@ -15,6 +15,7 @@ class TodoService {
     var snapshot = await _firestore
         .collection("todos")
         .where("author", isEqualTo: email)
+        .orderBy("createdAt", descending: true)
         .get();
     return snapshot.docs
         .map((e) => TodoModel.fromJson(e.id, e.data()))

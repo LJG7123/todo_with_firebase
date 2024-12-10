@@ -33,7 +33,7 @@ class TodoDetailScreen extends ConsumerWidget {
                     child: ListView.builder(
                       itemCount: todo.comments.length,
                       itemBuilder: (context, index) =>
-                          Text(todo.comments[index]),
+                          Text(todo.comments[index]["content"]!),
                     ),
                   ),
                 ],

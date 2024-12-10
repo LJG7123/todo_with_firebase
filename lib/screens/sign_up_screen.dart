@@ -131,7 +131,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       return;
     }
 
-    if (_passwordController.text.length < 6) {
+    if (_passwordController.text.length < 8) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("비밀번호는 최소 8자 이상이어야 합니다.")));
       return;

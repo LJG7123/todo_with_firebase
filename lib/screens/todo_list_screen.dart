@@ -82,6 +82,7 @@ class AddTodoDialog extends ConsumerWidget {
               todoNotifier.addTodo(TodoModel(
                   title: _titleController.text,
                   author: user.email,
+                  createdAt: DateTime.now().toIso8601String(),
                   comments: []));
               Navigator.of(context).pop();
             }

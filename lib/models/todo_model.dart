@@ -2,16 +2,21 @@ class TodoModel {
   String? id;
   String title;
   String author;
-  List<String> comments = [];
+  String createdAt;
+  List<Map<String, String>> comments = [];
 
   TodoModel(
       {this.id,
       required this.title,
       required this.author,
+      required this.createdAt,
       required this.comments});
 
   void addComment(String comment) {
-    comments.add(comment);
+    comments.add({
+      "content": comment,
+      "createdAt": DateTime.now().toIso8601String(),
+    });
   }
 
   Map<String, dynamic> toJson() {
@@ -19,6 +24,7 @@ class TodoModel {
       "title": title,
       "author": author,
       "comments": comments,
+      "createdAt": createdAt,
     };
   }
 
@@ -27,8 +33,13 @@ class TodoModel {
       id: id,
       title: json["title"],
       author: json["author"],
-      comments:
-          (json["comments"] as List<dynamic>).map((e) => e.toString()).toList(),
+      createdAt: json["createdAt"],
+      comments: (json["comments"] as List<dynamic>)
+          .map((e) => {
+                "content": e["content"].toString(),
+                "createdAt": e["createdAt"].toString(),
+              })
+          .toList(),
     );
   }
 }
